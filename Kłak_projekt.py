@@ -53,7 +53,7 @@ class Wojownik(Postac):
         statystyki = tuple((self.rodzaj, self.imie, self.zdrowie, self.obrazenia))
         Postac.lista_postaci.append(statystyki)
     def pokaz(self):
-        print(f"\nWojownik: {self.imie} \nZdrowie: {self.zdrowie} \nObrazenia: {self.obrazenia}\n")
+        print(f"\nWojownik: {self.imie} \nZdrowie: {self.zdrowie} \nObrazenia: {self.obrazenia}")
     def atakuj(self, Postac):
         if Postac.zdrowie <= 0:
             raise AttributeError(print(f"{Postac.imie} nie zyje"))
@@ -106,7 +106,7 @@ class Mag(Postac):
         statystyki = tuple((self.rodzaj, self.imie, self.zdrowie, self.moc))
         Postac.lista_postaci.append(statystyki)
     def pokaz(self):
-        print(f"\nMag: {self.imie} \nZdrowie: {self.zdrowie} \nMoc: {self.moc}\n")
+        print(f"\nMag: {self.imie} \nZdrowie: {self.zdrowie} \nMoc: {self.moc}")
     def atakuj(self, Postac):
         if Postac.zdrowie <= 0:
             raise AttributeError(print(f"{Postac.imie} nie zyje"))
