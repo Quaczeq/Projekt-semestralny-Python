@@ -24,9 +24,14 @@ class Wojownik(Postac):
     imie = ""
     zdrowie = 0
     obrazenia = 0
-    def __init__(self):
+    def __init__(self, imie = None, zdrowie = None, obrazenia = None):
         super().__init__()
-        self.stworz()
+        if imie is not None:
+            self.imie = imie
+            self.zdrowie = zdrowie
+            self.obrazenia = obrazenia
+        else:
+            self.stworz()
         
     def stworz(self):
         self.imie = input("Podaj imie: ")
@@ -72,9 +77,14 @@ class Mag(Postac):
     imie = ""
     zdrowie = 0
     moc = 0
-    def __init__(self):
+    def __init__(self, imie = None, zdrowie = None, moc = None):
         super().__init__()
-        self.stworz()
+        if imie is not None:
+            self.imie = imie
+            self.zdrowie = zdrowie
+            self.moc = moc
+        else:
+            self.stworz()
     def stworz(self):
         self.imie = input("Podaj imie: ")
         specjalizacja = int(input("Wybierz specjalizację: \n1. Zdrowie: 100, Moc: 10 \n2. Zdrowie: 120, Moc: 8 \n3. Zdrowie: 150, Moc: 5 \n Wybieram: "))
@@ -138,10 +148,7 @@ def wyswietl_postacie():
 
 odczytaj_z_pliku()
 
-print(Postac.lista_postaci)
-#Wojownik1 = Wojownik()
-#Mag1 = Mag()
-print(Postac.lista_postaci)
-wyswietl_postacie()
+for element in Postac.lista_postaci:
+    print(element)
 
 zapisz_do_pliku()
