@@ -145,8 +145,25 @@ def wyswietl_postacie():
         if line[0] == "Mag":
             print (f"{licznik}. {line[0]}: {line[1]} \nZdrowie: {line[2]} | Moc: {line[3]}\n")    
         licznik += 1
+        
+def utworz_obiekty():
+    obiekty = []
+    for line in Postac.lista_postaci:
+        if line[0] == "Wojownik":
+            line[2] = int(line[2])
+            line[3] = int(line[3])
+            obiekty.append(Wojownik(line[1], line[2], line[3]))
+        if line[0] == "Mag":
+            line[2] = int(line[2])
+            line[3] = int(line[3])
+            obiekty.append(Mag(line[1], line[2], line[3]))
+    return obiekty
 
-odczytaj_z_pliku()
+odczytaj_z_pliku() #odczytujemy z pliku i zapisujemy do listy obiektów
+Lista_postaci_temp = list(utworz_obiekty()) #lista obiektów, na których działamy w programie
+
+for element in Lista_postaci_temp:
+    element.pokaz()
 
 for element in Postac.lista_postaci:
     print(element)
