@@ -24,9 +24,10 @@ class Wojownik(Postac):
     imie = ""
     zdrowie = 0
     obrazenia = 0
-    def __init__(self, imie = None, zdrowie = None, obrazenia = None):
+    def __init__(self, rodzaj = None, imie = None, zdrowie = None, obrazenia = None):
         super().__init__()
         if imie is not None:
+            self.rodzaj = rodzaj
             self.imie = imie
             self.zdrowie = zdrowie
             self.obrazenia = obrazenia
@@ -77,9 +78,10 @@ class Mag(Postac):
     imie = ""
     zdrowie = 0
     moc = 0
-    def __init__(self, imie = None, zdrowie = None, moc = None):
+    def __init__(self, rodzaj = None, imie = None, zdrowie = None, moc = None):
         super().__init__()
         if imie is not None:
+            self.rodzaj = rodzaj
             self.imie = imie
             self.zdrowie = zdrowie
             self.moc = moc
@@ -123,11 +125,14 @@ class Mag(Postac):
         Postac.lista_postaci.remove((self.rodzaj, self.imie, self.zdrowie, self.moc))
         print(f"{self.imie} umiera")
         del Postac.lista_postaci[-1]
-
-def zapisz_do_pliku():
+            
+def zapisz_do_pliku(Postac = list()):
     with open("postacie.txt", "w") as file:
-        for line in Postac.lista_postaci:
-            file.write(f"{line[0]},{line[1]},{line[2]},{line[3]}\n")
+        for element in Postac:    
+            if element.rodzaj == "Wojownik":
+                file.write(f"Wojownik,{element.imie},{element.zdrowie},{element.obrazenia}\n")
+            if element.rodzaj == "Mag":
+                file.write(f"Mag,{element.imie},{element.zdrowie},{element.moc}\n")
             
 def odczytaj_z_pliku():
     with open("postacie.txt", "r") as file:
@@ -152,11 +157,11 @@ def utworz_obiekty():
         if line[0] == "Wojownik":
             line[2] = int(line[2])
             line[3] = int(line[3])
-            obiekty.append(Wojownik(line[1], line[2], line[3]))
+            obiekty.append(Wojownik(line[0],line[1], line[2], line[3]))
         if line[0] == "Mag":
             line[2] = int(line[2])
             line[3] = int(line[3])
-            obiekty.append(Mag(line[1], line[2], line[3]))
+            obiekty.append(Mag(line[0],line[1], line[2], line[3]))
     return obiekty
 
 odczytaj_z_pliku() #odczytujemy z pliku i zapisujemy do listy obiektów
@@ -168,4 +173,4 @@ for element in Lista_postaci_temp:
 for element in Postac.lista_postaci:
     print(element)
 
-zapisz_do_pliku()
+zapisz_do_pliku(Lista_postaci_temp) #zapisujemy do pliku listę obiektów
