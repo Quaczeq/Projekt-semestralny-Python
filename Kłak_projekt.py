@@ -1,4 +1,5 @@
 import abc
+import os
 
 class Postac:
     lista_postaci = []
@@ -53,7 +54,7 @@ class Wojownik(Postac):
         statystyki = tuple((self.rodzaj, self.imie, self.zdrowie, self.obrazenia))
         Postac.lista_postaci.append(statystyki)
     def pokaz(self):
-        print(f"\nWojownik: {self.imie} \nZdrowie: {self.zdrowie} \nObrazenia: {self.obrazenia}")
+        print(f"Wojownik: \t{self.imie} | Zdrowie: {self.zdrowie} | Obrazenia: {self.obrazenia}\n")
     def atakuj(self, Postac):
         if Postac.zdrowie <= 0:
             raise AttributeError(print(f"{Postac.imie} nie zyje"))
@@ -106,7 +107,7 @@ class Mag(Postac):
         statystyki = tuple((self.rodzaj, self.imie, self.zdrowie, self.moc))
         Postac.lista_postaci.append(statystyki)
     def pokaz(self):
-        print(f"\nMag: {self.imie} \nZdrowie: {self.zdrowie} \nMoc: {self.moc}")
+        print(f"Mag: \t{self.imie} | Zdrowie: {self.zdrowie} | Moc: {self.moc}\n")
     def atakuj(self, Postac):
         if Postac.zdrowie <= 0:
             raise AttributeError(print(f"{Postac.imie} nie zyje"))
@@ -125,6 +126,7 @@ class Mag(Postac):
         Postac.lista_postaci.remove((self.rodzaj, self.imie, self.zdrowie, self.moc))
         print(f"{self.imie} umiera")
         del Postac.lista_postaci[-1]
+
             
 def zapisz_do_pliku(Postac = list()):
     with open("postacie.txt", "w") as file:
@@ -164,13 +166,95 @@ def utworz_obiekty():
             obiekty.append(Mag(line[0],line[1], line[2], line[3]))
     return obiekty
 
+def menu():
+    os.system("cls")
+    print("Witaj w grze RPG!")
+    print()
+    print("Wybierz opcję: ")
+    print("1. Stwórz postać")
+    print("2. Wyświetl postacie")
+    print("3. Atakuj")
+    print("4. Ulecz się")
+    print("5. Awansuj")
+    print("6. Usuń postać")
+    print("7. Zakończ program")
+    wybor = int(input("Wybieram: "))
+    return wybor
+
+def wykonaj(wybor, lista):
+    if wybor == 1:
+        print("1. Wojownik")
+        print("2. Mag")
+        wybor = int(input("Wybieram: "))
+        if wybor == 1:
+            lista.append(Wojownik())
+            print("Dodano Wojownika!")
+            os.system("pause")
+        elif wybor == 2:
+            lista.append(Mag())
+            print("Dodano Maga!")
+            os.system("pause")
+        else:
+            print("Nie ma takiej opcji")
+            os.system("pause")
+    elif wybor == 2:
+        licznik = 1
+        for element in lista:
+            print(licznik, end=". ")
+            element.pokaz()
+            licznik += 1
+        os.system("pause")
+    elif wybor == 3:
+        licznik = 1
+        for element in lista:
+            print(licznik, end=". ")
+            element.pokaz()
+            licznik += 1
+        wybor = int(input("Wybierz postać atakującą: "))
+        wybor2 = int(input("Wybierz postać atakowaną: "))
+        lista[wybor-1].atakuj(lista[wybor2-1])
+        os.system("pause")
+    elif wybor == 4:
+        licznik = 1
+        for element in lista:
+            print(licznik, end=". ")
+            element.pokaz()
+            licznik += 1
+        wybor = int(input("Wybierz postać do uleczenia: "))
+        lista[wybor-1].ulecz_sie()
+        os.system("pause")
+    elif wybor == 5:
+        licznik = 1
+        for element in lista:
+            print(licznik, end=". ")
+            element.pokaz()
+            licznik += 1
+        wybor = int(input("Wybierz postać do awansu: "))
+        cel = lista[wybor-1]
+        cel.awansuj()
+        os.system("pause")
+    elif wybor == 6:
+        licznik = 1
+        for element in lista:
+            print(licznik, end=". ")
+            element.pokaz()
+            licznik += 1
+        wybor = int(input("Wybierz postać do usunięcia: "))
+        del lista[wybor - 1]
+        print("Postać została usunięta")
+        os.system("pause")
+    elif wybor == 7:
+        zapisz_do_pliku(lista)
+        print("Zapisano do pliku!")
+        print("Do zobaczenia!")
+        exit()
+    else:
+        print("Nie ma takiej opcji")
+        os.system("pause")
+
+#Aplikacja
 odczytaj_z_pliku() #odczytujemy z pliku i zapisujemy do listy obiektów
 Lista_postaci_temp = list(utworz_obiekty()) #lista obiektów, na których działamy w programie
-
-for element in Lista_postaci_temp:
-    element.pokaz()
-
-for element in Postac.lista_postaci:
-    print(element)
-
-zapisz_do_pliku(Lista_postaci_temp) #zapisujemy do pliku listę obiektów
+    
+while True:
+    wykonaj(menu(), Lista_postaci_temp)

@@ -1,5 +1,7 @@
-Wojownik,Graba,120,8
-Wojownik,Zielony,100,10
+Wojownik,Graba,120,13
+Wojownik,Zielony,67,10
 Mag,Ziemniok,120,9
-Wojownik,Galgan,100,10
+Wojownik,Galgan,100,15
 Mag,Gandalf,100,10
+Mag,Dionizos,150,5
+Wojownik,Konstanty,120,8
