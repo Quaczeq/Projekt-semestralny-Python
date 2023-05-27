@@ -1,5 +1,6 @@
 import abc
 import os
+import msvcrt
 
 class Postac:
     lista_postaci = []
@@ -178,7 +179,14 @@ def menu():
     print("5. Awansuj")
     print("6. Usuń postać")
     print("7. Zakończ program")
-    wybor = int(input("Wybieram: "))
+    
+    try:
+        print("Wybieram: ", end="")
+        wybor = int(msvcrt.getch())
+        print()
+    except ValueError:
+        print("Nie ma takiej opcji")
+        wybor = menu()
     return wybor
 
 def wykonaj(wybor, lista):
